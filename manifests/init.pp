@@ -4,11 +4,15 @@ class bsl_jenkins(
   class { '::jenkins':
     configure_firewall => false,
     cli                => true,
-    plugin_hash        => $plugins,
   }
 
   $jenkins_home = $::jenkins::localstatedir
   $jenkins_user = $::jenkins::user
+
+  if $plugins {
+    validate_hash($plugins)
+    class { 'bsl_jenkins::plugins': plugins => $plugins }
+  }
 
   file { '/usr/local/bin/jenkins-cli':
     content => template('bsl_jenkins/jenkins-cli.erb'),

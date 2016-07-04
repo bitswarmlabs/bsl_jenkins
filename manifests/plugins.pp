@@ -1,8 +1,7 @@
 class bsl_jenkins::plugins(
-  $defaults = {},
-) {
-  $plugin_hash = hiera('bsl_jenkins::plugins', {})
-  validate_hash($plugin_hash)
-
-  create_resources(::jenkins::plugin, $plugin_hash, $defaults)
+  $plugins,
+  $defaults = $bsl_jenkins::params::plugin_defaults,
+) inherits bsl_jenkins::params {
+  validate_hash($plugins)
+  create_resources('bsl_jenkins::plugin', $plugins, $defaults)
 }
