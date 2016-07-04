@@ -1,0 +1,46 @@
+class bsl_jenkins::config::roles::global::developer {
+  augeas { 'config-authorizationStrategy-globalRoles-developer':
+    incl    => '/app/jenkins/config.xml',
+    lens    => 'Xml.lns',
+    changes => [
+      # Defining Global Roles
+      'defnode globalRolesMap hudson/authorizationStrategy/roleMap[#attribute/type="globalRoles"] ""',
+
+      # Defining the "developer" role
+      'defnode developerRole $globalRolesMap/role[#attribute/name="developer"] ""',
+      'set $developerRole/#attribute/name developer',
+      'set $developerRole/#attribute/pattern .*',
+      'set $developerRole/permissions/permission[last()+1]/#text com.cloudbees.plugins.credentials.CredentialsProvider.UseItem',
+      'set $developerRole/permissions/permission[last()+1]/#text com.cloudbees.plugins.credentials.CredentialsProvider.UseOwn',
+      'set $developerRole/permissions/permission[last()+1]/#text com.cloudbees.plugins.credentials.CredentialsProvider.View',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Computer.Build',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Computer.Configure',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Computer.Connect',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Computer.Create',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Computer.Delete',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Computer.Disconnect',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Computer.ExtendedRead',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Hudson.Read',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Hudson.RunScripts',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Item.Build',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Item.Cancel',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Item.Configure',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Item.Create',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Item.Discover',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Item.ExtendedRead',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Item.Read',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Item.WipeOut',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Item.Workspace',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Run.Artifacts',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Run.Delete',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.Run.Update',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.View.Configure',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.View.Create',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.View.Delete',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.model.View.Read',
+      'set $developerRole/permissions/permission[last()+1]/#text hudson.scm.SCM.Tag',
+      'set $developerRole/permissions/permission[last()+1]/#text org.jenkinsci.plugins.envinject.EnvInjectPlugin.ViewVars',
+    ],
+    notify => Exec['jenkins-config-tidy'],
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "bitswarmlabs/bsl_jenkins",
+  "version": "0.1.0",
+  "author": "bitswarmlabs",
+  "summary": "Convenience wrapper for managing Jenkins",
+  "license": "MIT",
+  "source": "https://github.com/bitswarmlabs/puppet-bsl_jenkins",
+  "project_page": "http://bitswarm.io",
+  "issues_url": "http://bitswarm.io",
+  "dependencies": [
+    {"name":"meltwater/cpan", "version_requirement":">= 1.0.1"}
+  ],
+  "data_provider": null
+}
+
