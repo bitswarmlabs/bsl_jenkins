@@ -41,8 +41,7 @@ define bsl_jenkins::plugin(
   validate_string($digest_type)
   validate_bool($pin)
 
-  ::jenkins::plugin { $title:
-    name            => $name,
+  ::jenkins::plugin { $name:
     version         => $version,
     manage_config   => $manage_config,
     config_filename => $config_filename,
