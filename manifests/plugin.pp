@@ -25,10 +25,6 @@ define bsl_jenkins::plugin(
   $source          = undef,
   $digest_string   = undef,
   $digest_type     = 'sha1',
-  $pin             = true,
-  # no worky
-  $timeout         = undef,
-  # deprecated
   $plugin_dir      = undef,
   $username        = undef,
   $group           = undef,
@@ -56,8 +52,6 @@ define bsl_jenkins::plugin(
     source          => $source,
     digest_string   => $digest_string,
     digest_type     => $digest_type,
-    pin             => $pin,
-    timeout         => $timeout,
     plugin_dir      => $plugin_dir,
     username        => $username,
     group           => $group,
