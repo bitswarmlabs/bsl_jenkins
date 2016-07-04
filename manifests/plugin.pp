@@ -39,7 +39,6 @@ define bsl_jenkins::plugin(
   validate_string($source)
   validate_string($digest_string)
   validate_string($digest_type)
-  validate_bool($pin)
 
   ::jenkins::plugin { $name:
     version         => $version,
