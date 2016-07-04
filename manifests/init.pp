@@ -1,7 +1,10 @@
-class bsl_jenkins inherits bsl_jenkins::params {
+class bsl_jenkins(
+  $plugins = undef
+) inherits bsl_jenkins::params {
   class { '::jenkins':
     configure_firewall => false,
-    cli => true,
+    cli                => true,
+    plugin_hash        => $plugins,
   }
 
   $jenkins_home = $::jenkins::localstatedir
@@ -19,7 +22,7 @@ class bsl_jenkins inherits bsl_jenkins::params {
   }
 
   file { "/etc/facter/facts.d/jenkins.yaml":
-    ensure => file,
+    ensure  => file,
     content => template("bsl_jenkins/jenkins-facts.yaml.erb"),
     require => File['/etc/facter/facts.d/']
   }
