@@ -3,10 +3,6 @@ define bsl_jenkins::config::roles::global::assignment(
 ) {
   include bsl_jenkins::config
 
-  notify { "global-role-assign-$name-to-$role":
-    message => "## adding $name to $role",
-  }
-
   augeas { "config-authorizationStrategy-globalRoles-assign-$name-to-$role":
     incl    => '/app/jenkins/config.xml',
     lens    => 'Xml.lns',
